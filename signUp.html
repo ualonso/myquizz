@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<header>
+		<script type="text/javascript">
+		
+			function konprobazioa(){
+				var sAux="";
+				var frm=document.getElementById("erregistro");
+				if(frm.name.value ==""){sAux += "Izen-abizenak eremua bete behar da.\n";}
+				if(frm.name.value !="" && validateName(frm.name.value)==false){sAux+="Izena eta bi abizen idatzi behar dira, denak letra larriz hasita.\n";}
+				if(frm.email.value ==""){sAux += "Eposta elektronikoa eremua bete behar da.\n";}
+				if(frm.email.value != "" && validateEmail(frm.email.value)==false){sAux+="Email egokia: ikasleizena+3digitu@ikasle.ehu.e(u)s\n";}
+				if(frm.password.value ==""){sAux += "Pasahitza eremua bete behar da.\n";}
+				if(frm.password.value != "" && frm.password.value.length < 6){sAux += "Pasahitzak gutxienez 6 karaktere izan behar ditu.\n";}
+				if(frm.phone.value ==""){sAux += "Telefono zenbakia eremua bete behar da.\n";}
+				if(frm.phone.value != "" && validatePhone(frm.phone.value)==false){sAux+="Telefono zenbaki egokia: 9 digitu\n";}
+				if(frm.espezialitatea[3].checked == true && frm.textBesteak.value == ""){sAux+="Espezialitatearen izena idatzi.\n"}
+				if(sAux==""){
+					return true;
+				}else{
+					alert(sAux);
+					return false;
+				}
+			}
+			
+			function validateEmail(email) {
+				var re = /^[a-z]+[0-9]{3}@ikasle\.ehu\.+(eus|es)$/;
+				return re.test(email);
+			}
+			
+			function validatePhone(phone){
+				var phoneno = /^\d{9}$/;
+				return phoneno.test(phone);
+			}
+			
+			function validateName(name){
+				var na = /^[A-Z]{1}[a-z]+\s+[A-Z]{1}[a-z]+\s+[A-Z]{1}[a-z]+$/;
+				return na.test(name);
+			}
+			
+			function erakutsiText(){
+				var de=document.erregistro;
+				if (de.espezialitatea[3].checked == true) {
+					document.getElementById('textBesteak').style.display='block';
+				}else if (de.espezialitatea[0].checked == true || de.espezialitatea[1].checked == true ||de.espezialitatea[2].checked == true) {
+					document.getElementById('textBesteak').style.display='none';
+				}else{
+					document.getElementById('textBesteak').style.display='none';
+				}
+			}
+			
+			function argazkiaErakutsi(ftx) {
+                  var files = ftx.target.files;
+             
+                  for (var i = 0, f; f = files[i]; i++) {
+                    //Argazkiak bakarrik onartu
+                    if (!f.type.match('image.*')) {
+                        continue;
+                    }
+             
+                    var reader = new FileReader();
+             
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                          // Argazkia erakutsi
+                         document.getElementById("list").innerHTML = ['<img class="thumb" alt="Web" height="256" width="256" src="' , e.target.result,'" title="', escape(theFile.name), '"><br>'].join('');
+                        };
+                    })(f);
+             
+                    reader.readAsDataURL(f);
+                  }
+              }
+			
+		</script>
+	</header>
+	<body>
+		<div align="center">
+		
+			<form id="erregistro" name="erregistro" onSubmit="return konprobazioa()" >
+			<fieldset style="max-width:50%;">
+				<legend>Erregistratu</legend><br>
+				Izen-abizenak (*): <input type="text" name="name"><br><br>
+				Eposta elektronikoa (*): <input type="text" name="email"><br><br>
+				Pasahitza (*): <input type="text" name="password"><br><br>
+				Telefono zenbakia (*): <input type="text" name="phone"><br><br>
+				
+				<strong> Zure espezialitatea (*):</strong><br>
+				<input type="radio" name="espezialitatea" value="software" checked onclick="erakutsiText();"> Software Ingeniaritza<br>
+				<input type="radio" name="espezialitatea" value="konputagailu" onclick="erakutsiText();"> Konputagailuen Ingeniaritza<br>
+				<input type="radio" name="espezialitatea" value="konpu" onclick="erakutsiText();"> Konputazioa<br>
+				<input type="radio" name="espezialitatea" value="konpu" onclick="erakutsiText();"> "Besterik"<br><br>
+				
+				<input type="text" id="textBesteak" style="display:none" name="message" placeholder="Idatzi emen zure espezialitatea..." size="30"></text><br>
+				
+				Interesa duzun teknologiak eta erremintak (hautazkoa): <br><textarea name="message" rows="10" cols="30"></textarea><br><br>
+				
+				Aukeratu argazki bat erregistroa egiteko (hautazkoa):<br>
+				<input type="file" id="files" name="files[]"></input><br><br>
+				<output id="list"></output><br>
+				<script>
+				document.getElementById('files').addEventListener('change', argazkiaErakutsi, false);
+				</script>
+				<input name="button" type="submit" value="Erregistratu">
+			</fieldset>
+			</form>
+			
+			<p>Sakatu Erregistratu botoia erregistroa betetzeko.</p>
+			<span><a href='layout.html'>Itzuli</a></span>
+		</div>
+	</body>
+</html>
