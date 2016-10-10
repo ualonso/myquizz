@@ -12,23 +12,61 @@ if(!$esteka){
 	echo "error depurazio akatsa:" . mysqli_connect_error().PHP_EOL;
 	exit;
 }
+
+$email = $_POST['email'];
+if (filter_var($email, FILTER_VALIDATE_REGEXP,array("options"=>array("regexp"=>"/^[a-z]+[0-9]{3}@ikasle\.ehu\.(eus|es)$/")))){
+	echo("emaila onartua, ");
+} else{
+	echo("email desegokia ");
+}
+
+
+
 $varEspezialitatea = $_POST['espezialitatea'];
 if($varEspezialitatea == 'besterik'){
 	$varEspezialitatea = $_POST['message2'];
 }
 
-
-
-//Errore konprobaketa.
+//Argazkirik ez.
 if ($_FILES["files"]["error"] > 0){
-	echo "ha ocurrido un error";
+	
+	$sql = "INSERT INTO 
+	erabiltzaile(Izena,Abizenak,Eposta,Pasahitza,
+	Telefonoa,Espezialitatea,Gehigarriak,Argazkia) 
+	VALUES('$_POST[name]','$_POST[surname]','$_POST[email]',
+	'$_POST[password]','$_POST[phone]','$varEspezialitatea',
+	'$_POST[message]','')";
+	
+	if(!mysqli_query($esteka,$sql)){
+	die('Errorea query-a gauzatzerakoan: ' .mysqli_error($esteka));
+	}
+	
+	echo "Erregistro bat gehitu da!";
+	echo "<p><a href='IkusiErabiltzaileakWithImage.php'> Erregistroak ikusi</a></p>";
+	
+//Argazkia bai.	
 } else {
 	//Fitxategi egokia dela ziurtatu
 	//baita tamaina egokia duela.
 	$baimenduak = array("image/jpg", "image/jpeg", "image/gif", "image/png");
 	$limitea_kb = 100;
 
+	
 	if (in_array($_FILES['files']['type'], $baimenduak) && $_FILES['files']['size'] <= $limitea_kb * 1024){
+		
+		$izena = $_FILES['files']['name'];
+		$path = "images/$izena";
+		$sql = "INSERT INTO 
+		erabiltzaile(Izena,Abizenak,Eposta,Pasahitza,
+		Telefonoa,Espezialitatea,Gehigarriak,Argazkia) 
+		VALUES('$_POST[name]','$_POST[surname]','$_POST[email]',
+		'$_POST[password]','$_POST[phone]','$varEspezialitatea',
+		'$_POST[message]','$izena')";
+	
+		if(!mysqli_query($esteka,$sql)){
+		die('Errorea query-a gauzatzerakoan: ' .mysqli_error($esteka));
+		}
+			
 		//Argazkiak images karpetan metatu.
 		$target_path = "images/";
 		$target_path = $target_path . basename( $_FILES['files']['name']); 
@@ -37,24 +75,13 @@ if ($_FILES["files"]["error"] > 0){
 		} else{
 		echo "Errore bat gertatu da, saiatu berriz!";
 		}
-		$izena = $_FILES['files']['name'];
-		$sql = "INSERT INTO 
-		erabiltzaile(Izena,Abizenak,Eposta,Pasahitza,
-		Telefonoa,Espezialitatea,Gehigarriak,Argazkia) 
-		VALUES('$_POST[name]','$_POST[surname]','$_POST[email]',
-		'$_POST[password]','$_POST[phone]','$varEspezialitatea',
-		'$_POST[message]','$izena')";
-		
-		if(!mysqli_query($esteka,$sql)){
-			die('Errorea query-a gauzatzerakoan: ' .mysqli_error($esteka));
-		}
-
-		echo "Erregistro bat gehitu da!";
-		echo "<p><a href='IkusiErabiltzaileakWithImage.php'> Erregistroak ikusi</a></p>";
 		
 	} else {
 		echo "Fitxategi honek ez du balio, ez du formatu egokia edo tamaina handiegia, gehienez $limitea_kb Kilobyte";
 	}
+		echo "Erregistro bat gehitu da!";
+		echo "<p><a href='IkusiErabiltzaileakWithImage.php'> Erregistroak ikusi</a></p>";
+	
 }
 
 

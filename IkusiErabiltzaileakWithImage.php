@@ -20,13 +20,17 @@ echo '<table border=1><tr><th>Izena</th><th>Abizenak</th><th>Eposta</th>
 <th>Gehigarriak</th><th>Argazkia</tr>';
 
 while($row=mysqli_fetch_array($ema,MYSQLI_ASSOC)){
+	$id = $row['Argazkia'];
+
 	echo '<tr><td>'.$row['Izena'].'</td><td>'.$row['Abizenak'].'</td>
 	<td>'.$row['Eposta'].'</td><td>'.$row['Pasahitza'].'</td>
 	<td>'.$row['Telefonoa'].'</td><td>'.$row['Espezialitatea'].'</td>
-	<td>'.$row['Gehigarriak'].'</td><td>'.$row['Argazkia'].'</td>';
+	<td>'.$row['Gehigarriak'].'</td><td>'."<img src='images/$id' />".'</td>';
 }
 
 echo '</table>';
+
+
 mysqli_free_result($ema);
 
 
