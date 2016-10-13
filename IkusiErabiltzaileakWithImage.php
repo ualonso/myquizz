@@ -3,8 +3,8 @@
 
 <?php 
 
-$esteka = mysqli_connect("localhost","root","","quiz");
-//$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
+//$esteka = mysqli_connect("localhost","root","","quizz");
+$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
 
 if(!$esteka){
 	echo "Hutsegitea MySQLra konektatzerakoan." .PHP_EOL;
@@ -25,7 +25,7 @@ while($row=mysqli_fetch_array($ema,MYSQLI_ASSOC)){
 	echo '<tr><td>'.$row['Izena'].'</td><td>'.$row['Abizenak'].'</td>
 	<td>'.$row['Eposta'].'</td><td>'.$row['Pasahitza'].'</td>
 	<td>'.$row['Telefonoa'].'</td><td>'.$row['Espezialitatea'].'</td>
-	<td>'.$row['Gehigarriak'].'</td><td>'."<img src='images/$id' />".'</td>';
+	<td>'.$row['Gehigarriak'].'</td><td>'."<img src='images/$id' height='64' width='64' />".'</td>';
 }
 
 echo '</table>';

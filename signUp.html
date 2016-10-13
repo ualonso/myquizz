@@ -8,15 +8,15 @@
 				var sAux="";
 				var frm=document.getElementById("erregistro");
 				if(frm.name.value ==""){sAux += "Izena eremua bete behar da.\n";}
-				if(frm.name.value !="" && validateName(frm.name.value)==false){sAux+="Izena idatzi behar da, letra larriz hasita.\n";}
+				//if(frm.name.value !="" && validateName(frm.name.value)==false){sAux+="Izena idatzi behar da, letra larriz hasita.\n";}
 				if(frm.surname.value ==""){sAux += "Abizenak eremua bete behar da.\n";}
-				if(frm.surname.value!="" && validateSurname(frm.surname.value)==false){"Bi abizen idatzi behar dira, biak letra larriz hasita.\n";}
-				//if(frm.email.value ==""){sAux += "Eposta elektronikoa eremua bete behar da.\n";}
+				//if(frm.surname.value!="" && validateSurname(frm.surname.value)==false){"Bi abizen idatzi behar dira, biak letra larriz hasita.\n";}
+				if(frm.email.value ==""){sAux += "Eposta elektronikoa eremua bete behar da.\n";}
 				//if(frm.email.value != "" && validateEmail(frm.email.value)==false){sAux+="Email egokia: ikasleizena+3digitu@ikasle.ehu.e(u)s\n";}
 				if(frm.password.value ==""){sAux += "Pasahitza eremua bete behar da.\n";}
-				if(frm.password.value != "" && frm.password.value.length < 6){sAux += "Pasahitzak gutxienez 6 karaktere izan behar ditu.\n";}
+				//if(frm.password.value != "" && frm.password.value.length < 6){sAux += "Pasahitzak gutxienez 6 karaktere izan behar ditu.\n";}
 				if(frm.phone.value ==""){sAux += "Telefono zenbakia eremua bete behar da.\n";}
-				if(frm.phone.value != "" && validatePhone(frm.phone.value)==false){sAux+="Telefono zenbaki egokia: 9 digitu\n";}
+				//if(frm.phone.value != "" && validatePhone(frm.phone.value)==false){sAux+="Telefono zenbaki egokia: 9 digitu\n";}
 				if(frm.espezialitatea[3].checked == true && frm.textBesteak.value == ""){sAux+="Espezialitatearen izena idatzi.\n"}
 				if(sAux==""){
 					return true;
@@ -42,7 +42,7 @@
 			}
 			
 			function validateSurname(surname){
-				var na = /^[A-Z]{1}[a-z]+\s+[A-Z]{1}[a-z]+\s+$/;
+				var na = /^[A-Z]{1}[a-z]+\s+[A-Z]{1}[a-z]+$/;
 				return na.test(name);
 			}
 			
@@ -84,7 +84,7 @@
 	<body>
 		<div align="center">
 		
-			<form id="erregistro" name="erregistro" onSubmit="return konprobazioa()" enctype="multipart/form-data" method="post" action="enrollwithimage.php">
+			<form id="erregistro" name="erregistro" onSubmit="return konprobazioa()" enctype="multipart/form-data" method="post" action="EnrollWithImage.php">
 			<fieldset style="max-width:50%;">
 				<legend>Erregistratu</legend><br>
 				Izena (*): <input type="text" name="name"><br><br>
