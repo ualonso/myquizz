@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <html>
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
@@ -16,7 +17,7 @@
   <body>
   <div id='page-wrap'>
 	<header class='main' id='h1'>
-      <span class="right"><a href='SignIn.php'>LogIn</a> </span>
+      <span class="right"><a href='SignIn.php'>SignIn</a> </span>
       <span class="right" style="display:none;"><a href="/logout">LogOut</a> </span>
 	<h2>Quiz: crazy questions</h2>
     </header>
@@ -26,6 +27,7 @@
 		<span><a href='credits.html'>Credits</a></span>
 		<span><a href='signUp.html'>SignUp</a></span>
 		<span><a href='signUp5.html'>SignUp (HTML5)</a></span>
+		<span><a href='ShowQuestions.php'>Show Questions</a></span>
 
 	</nav>
     <section class="main" id="s1">
@@ -42,3 +44,9 @@
 </div>
 </body>
 </html>
+
+<?php 
+	//Irekitako sesioa itxi, baldin badago.
+	unset($_SESSION['POST']);
+?>
+

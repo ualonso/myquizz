@@ -3,8 +3,8 @@
 
 <?php 
 
-//$esteka = mysqli_connect("localhost","root","","quizz");
-$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
+$esteka = mysqli_connect("localhost","root","","quizz");
+//$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
 
 if(!$esteka){
 	echo "Hutsegitea MySQLra konektatzerakoan." .PHP_EOL;

@@ -1,10 +1,9 @@
-<html>
-<body>
+
 
 <?php 
 
-//$esteka = mysqli_connect("localhost","root","","quizz");
-$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
+$esteka = mysqli_connect("localhost","root","","quizz");
+//$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
 
 if(!$esteka){
 	echo "Hutsegitea MySQLra konektatzerakoan." .PHP_EOL;
@@ -87,26 +86,29 @@ if ($_FILES["files"]["error"] > 0){
 	
 	if (in_array($_FILES['files']['type'], $baimenduak) && $_FILES['files']['size'] <= $limitea_kb * 1024){
 		
-		$izena = $_FILES['files']['name'];
-		$path = "images/$izena";
-		$sql = "INSERT INTO 
+		// Fitxategi tenporala
+        $tenporala = $_FILES['files']['tmp_name'];
+
+        // Fitxategi mota
+        $tipo = $_FILES['files']['type'];
+
+        // Fitxategi tenporalaren edukia bitarrean irakurri.
+        $fp = fopen($tenporala, 'r+b');
+        $data = fread($fp, filesize($tenporala));
+        fclose($fp);
+        
+        $data = mysql_escape_string($data);
+
+        // Datu basean gorde.
+        		$sql = "INSERT INTO 
 		erabiltzaile(Izena,Abizenak,Eposta,Pasahitza,
-		Telefonoa,Espezialitatea,Gehigarriak,Argazkia) 
+		Telefonoa,Espezialitatea,Gehigarriak,Argazkia,Formatua) 
 		VALUES('$_POST[name]','$_POST[surname]','$_POST[email]',
 		'$_POST[password]','$_POST[phone]','$varEspezialitatea',
-		'$_POST[message]','$izena')";
+		'$_POST[message]','$data','$tipo')";
 	
 		if(!mysqli_query($esteka,$sql)){
 		die('Errorea query-a gauzatzerakoan: ' .mysqli_error($esteka));
-		}
-			
-		//Argazkiak images karpetan metatu.
-		$target_path = "images/";
-		$target_path = $target_path . basename( $_FILES['files']['name']); 
-		if(move_uploaded_file($_FILES['files']['tmp_name'], $target_path)) { 
-			echo "". basename( $_FILES['files']['name']). " ongi igo da. ";
-		} else{
-		echo "Errore bat gertatu da, saiatu berriz!";
 		}
 		
 	} else {
@@ -119,6 +121,9 @@ if ($_FILES["files"]["error"] > 0){
 
 mysqli_close($esteka);
 ?>
+
+<html>
+<body>
 
 <span><a href='layout.html'>Itzuli</a></span>
 

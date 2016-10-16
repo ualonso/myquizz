@@ -1,10 +1,10 @@
 <html>
-<body>
 
+<body>
 <?php 
 
-//$esteka = mysqli_connect("localhost","root","","quizz");
-$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
+$esteka = mysqli_connect("localhost","root","","quizz");
+//$esteka = mysqli_connect("mysql.hostinger.es","u362104564_mikel","123456","u362104564_erab");
 
 if(!$esteka){
 	echo "Hutsegitea MySQLra konektatzerakoan." .PHP_EOL;
@@ -19,14 +19,17 @@ echo '<table border=1><tr><th>Izena</th><th>Abizenak</th><th>Eposta</th>
 <th>Pasahitza</th><th>Telefonoa</th><th>Espezialitatea</th>
 <th>Gehigarriak</th><th>Argazkia</tr>';
 
-while($row=mysqli_fetch_array($ema,MYSQLI_ASSOC)){
-	$id = $row['Argazkia'];
 
+while($row=mysqli_fetch_array($ema,MYSQLI_ASSOC)){
+	
+	$id = $row['Argazkia'];
+	$formatua = $row['Formatua'];
+	
 	echo '<tr><td>'.$row['Izena'].'</td><td>'.$row['Abizenak'].'</td>
 	<td>'.$row['Eposta'].'</td><td>'.$row['Pasahitza'].'</td>
 	<td>'.$row['Telefonoa'].'</td><td>'.$row['Espezialitatea'].'</td>
-	<td>'.$row['Gehigarriak'].'</td><td>'."<img src='images/$id' height='64' width='64' />".'</td>';
-}
+	<td>'.$row['Gehigarriak'].'</td><td>'.'<img src="data:$formatua;base64,'.base64_encode( $id ).'"/></td>';
+	}
 
 echo '</table>';
 

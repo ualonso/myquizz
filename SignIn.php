@@ -1,16 +1,14 @@
-<html>
+<!DOCTYPE html>
 
-	<header>
-		
-	</header>
+<html>
 	<body>
 		<div align="center">
 		
-			<form id="login" name="login" onSubmit="return konprobazioa()" enctype="multipart/form-data" method="post" action="InsertQuestion.php">
+			<form id="login" name="login" onSubmit="return konprobazioa()" enctype="multipart/form-data" method="post" action="SignIn.php">
 			<fieldset style="max-width:50%;">
 				<legend>Sign-In</legend><br>
-				Eposta elektronikoa: <input type="text" name="email"><br><br>
-				Pasahitza: <input type="text" name="password"><br><br>
+				<input type="text" name="email" placeholder="Eposta"><br><br>
+				<input type="text" name="password" placeholder="Pasahitza"><br><br>
 				
 				<input name="button" type="submit" value="Sartu">
 			</fieldset>
@@ -41,6 +39,11 @@ $ema=mysqli_query($esteka,"SELECT * FROM erabiltzaile WHERE Eposta='$_POST[email
 if($ema->num_rows == 0){
 	header('Location: SignIn.php');	
 }else{
+	//Sesioa hasi
+	session_start();
+	// POST aldagaiak kopiatu
+	$_SESSION['POST'] = $_POST;
+	
 	header('Location: InsertQuestion.php');
 }
 
