@@ -24,11 +24,18 @@ while($row=mysqli_fetch_array($ema,MYSQLI_ASSOC)){
 	
 	$id = $row['Argazkia'];
 	$formatua = $row['Formatua'];
+		if ($formatua == "image/jpg" || $formatua == "image/jpeg" || $formatua == "image/gif" || $formatua == "image/png"){
 	
-	echo '<tr><td>'.$row['Izena'].'</td><td>'.$row['Abizenak'].'</td>
-	<td>'.$row['Eposta'].'</td><td>'.$row['Pasahitza'].'</td>
-	<td>'.$row['Telefonoa'].'</td><td>'.$row['Espezialitatea'].'</td>
-	<td>'.$row['Gehigarriak'].'</td><td>'.'<img src="data:$formatua;base64,'.base64_encode( $id ).'"/></td>';
+			echo '<tr><td>'.$row['Izena'].'</td><td>'.$row['Abizenak'].'</td>
+			<td>'.$row['Eposta'].'</td><td>'.$row['Pasahitza'].'</td>
+			<td>'.$row['Telefonoa'].'</td><td>'.$row['Espezialitatea'].'</td>
+			<td>'.$row['Gehigarriak'].'</td><td>'.'<img height="70" width="70" src="data:$formatua;base64,'.base64_encode( $id ).'"/></td>';
+		}else {
+			echo '<tr><td>'.$row['Izena'].'</td><td>'.$row['Abizenak'].'</td>
+			<td>'.$row['Eposta'].'</td><td>'.$row['Pasahitza'].'</td>
+			<td>'.$row['Telefonoa'].'</td><td>'.$row['Espezialitatea'].'</td>
+			<td>'.$row['Gehigarriak'].'</td><td>';
+		}
 	}
 
 echo '</table>';

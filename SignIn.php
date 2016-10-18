@@ -43,6 +43,16 @@ if($ema->num_rows == 0){
 	session_start();
 	// POST aldagaiak kopiatu
 	$_SESSION['POST'] = $_POST;
+		
+	// Identifikazio datuak gorde.
+	$data = date("Y-m-d H:i:s");
+	$email = $_POST['email'];
+	$sql = "INSERT INTO 
+		konexioak(Eposta,Ordua) 
+		VALUES('$email','$data')";
+		if(!mysqli_query($esteka,$sql)){
+		die('Errorea query-a gauzatzerakoan: ' .mysqli_error($esteka));
+	}
 	
 	header('Location: InsertQuestion.php');
 }

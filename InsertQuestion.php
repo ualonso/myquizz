@@ -53,6 +53,11 @@ if(isset($_POST['galdera'],$_POST['erantzuna'])){
 		exit;
 	}
 	
+	//	$data = date("Y-m-d H:i:s");
+	//$sql = "INSERT INTO 
+	//	konexioak(Eposta,Ordua) 
+	//	VALUES('$email','$data')";
+		
 	if($_POST['zailtasuna'] == "null"){
 		$sql = "INSERT INTO 
 		galdera(Eposta,Galdera,Erantzuna,Zailtasuna) 
